@@ -8,6 +8,7 @@ import { InternalError } from "@changesets/errors";
 import { Packages, Package } from "@manypkg/get-packages";
 import { getDependentsGraph } from "@changesets/get-dependents-graph";
 import { PreInfo, InternalRelease } from "./types";
+import { getPkgJsonVersion } from "./utils";
 
 function getPreVersion(version: string) {
   let parsed = semver.parse(version)!;
@@ -134,7 +135,7 @@ function assembleReleasePlan(
             type: "patch",
             name: pkg.packageJson.name,
             changesets: [],
-            oldVersion: pkg.packageJson.version
+            oldVersion: getPkgJsonVersion(pkg.packageJson)
           });
         }
       }
